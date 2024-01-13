@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Navigation from "./Navigation.jsx";
-import MainSection from "./MainSection.jsx";
+import {useState} from "react";
+import Navigation from "./components/Navigation.jsx";
+import MainSection from "./components/MainSection.jsx";
 
 const tempMovieData = [
     {
@@ -56,7 +56,8 @@ export default function App() {
         <>
             <Navigation movies={movies}/>
 
-            <MainSection movies={movies} tempWatchedData={tempWatchedData}/>
+            <MainSection movies={movies}
+                         tempWatchedData={tempWatchedData}/>
         </>
     );
 }
