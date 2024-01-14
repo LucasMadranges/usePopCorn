@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Button from "./Button.jsx";
 
-export default function ListBox({children}) {
+export default function Box({children}) {
     const [isOpen, setIsOpen] = useState(true);
 
     return (

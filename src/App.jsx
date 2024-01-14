@@ -3,9 +3,10 @@ import Navigation from "./components/Navigation.jsx";
 import MainSection from "./components/MainSection.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import NumResults from "./components/NumResults.jsx";
-import ListBox from "./components/ListBox.jsx";
-import WatchedBox from "./components/WatchedBox.jsx";
+import Box from "./components/Box.jsx";
 import MovieList from "./components/MovieList.jsx";
+import Summary from "./components/Summary.jsx";
+import WatchedMoviesList from "./components/WatchedMoviesList.jsx";
 
 const tempMovieData = [
     {
@@ -56,6 +57,7 @@ const tempWatchedData = [
 
 export default function App() {
     const [movies, setMovies] = useState(tempMovieData);
+    const [watched, setWatched] = useState(tempWatchedData);
 
     return (
         <>
@@ -65,10 +67,14 @@ export default function App() {
             </Navigation>
 
             <MainSection>
-                <ListBox>
+                <Box>
                     <MovieList movies={movies}/>
-                </ListBox>
-                <WatchedBox tempWatchedData={tempWatchedData}/>
+                </Box>
+
+                <Box>
+                    <Summary watched={watched}/>
+                    <WatchedMoviesList watched={watched}/>
+                </Box>
             </MainSection>
         </>
     );
