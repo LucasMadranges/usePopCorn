@@ -1,12 +1,8 @@
-import ListBox from "./ListBox.jsx";
-import WatchedBox from "./WatchedBox.jsx";
-
-export default function MainSection({movies, tempWatchedData}) {
+export default function MainSection({children}) {
 
     return (
         <main className="main">
-            <ListBox movies={movies}/>
-            <WatchedBox tempWatchedData={tempWatchedData}/>
+            {children}
         </main>
     )
 }

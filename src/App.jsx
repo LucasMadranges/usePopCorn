@@ -1,6 +1,11 @@
 import {useState} from "react";
 import Navigation from "./components/Navigation.jsx";
 import MainSection from "./components/MainSection.jsx";
+import SearchBar from "./components/SearchBar.jsx";
+import NumResults from "./components/NumResults.jsx";
+import ListBox from "./components/ListBox.jsx";
+import WatchedBox from "./components/WatchedBox.jsx";
+import MovieList from "./components/MovieList.jsx";
 
 const tempMovieData = [
     {
@@ -54,10 +59,17 @@ export default function App() {
 
     return (
         <>
-            <Navigation movies={movies}/>
+            <Navigation>
+                <SearchBar/>
+                <NumResults movies={movies}/>
+            </Navigation>
 
-            <MainSection movies={movies}
-                         tempWatchedData={tempWatchedData}/>
+            <MainSection>
+                <ListBox>
+                    <MovieList movies={movies}/>
+                </ListBox>
+                <WatchedBox tempWatchedData={tempWatchedData}/>
+            </MainSection>
         </>
     );
 }

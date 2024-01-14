@@ -1,14 +1,10 @@
-import SearchBar from "./SearchBar.jsx";
 import Logo from "./Logo.jsx";
 
-export default function Navigation({movies}) {
+export default function Navigation({children}) {
     return (
         <nav className="nav-bar">
             <Logo/>
-            <SearchBar/>
-            <p className="num-results">
-                Found <strong>{movies.length}</strong> results
-            </p>
+            {children}
         </nav>
     )
 }
