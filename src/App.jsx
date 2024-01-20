@@ -9,6 +9,7 @@ import Summary from "./components/Summary.jsx";
 import WatchedMoviesList from "./components/WatchedMoviesList.jsx";
 import Loader from "./components/Loader.jsx";
 import ErrorMessage from "./components/ErrorMessage.jsx";
+import SelectedMovie from "./components/SelectedMovie.jsx";
 
 const tempMovieData = [
     {
@@ -63,9 +64,17 @@ export default function App() {
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
     const [query, setQuery] = useState("");
-    const tempQuery = 'avengers'
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('')
+    const [selectedId, setSelectedId] = useState(null);
+
+    function handleSelectMovie(id) {
+        setSelectedId(selectedId => id === selectedId ? null : id);
+    }
+
+    function handleCLoseMovie() {
+        setSelectedId(null)
+    }
 
     useEffect(() => {
         setIsLoading(true);
@@ -106,13 +115,22 @@ export default function App() {
             <MainSection>
                 <Box>
                     {isLoading && <Loader/>}
-                    {!isLoading && !error && <MovieList movies={movies}/>}
+                    {!isLoading && !error && <MovieList movies={movies}
+                                                        onSelectedMovie={handleSelectMovie}/>}
                     {error && <ErrorMessage message={error}/>}
                 </Box>
 
                 <Box>
-                    <Summary watched={watched}/>
-                    <WatchedMoviesList watched={watched}/>
+                    {selectedId ? (
+                            <SelectedMovie selectedId={selectedId}
+                                           onCloseMovie={handleCLoseMovie}/>
+                        )
+                        : (
+                            <>
+                                <Summary watched={watched}/>
+                                <WatchedMoviesList watched={watched}/>
+                            </>
+                        )}
                 </Box>
             </MainSection>
         </>
