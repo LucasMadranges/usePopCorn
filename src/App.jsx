@@ -72,8 +72,16 @@ export default function App() {
         setSelectedId(selectedId => id === selectedId ? null : id);
     }
 
-    function handleCLoseMovie() {
+    function handleCloseMovie() {
         setSelectedId(null)
+    }
+
+    function handleAddWatched(movie) {
+        setWatched(watched => [...watched, movie]);
+    }
+
+    function handleDeleteWatched(id) {
+        setWatched(watched => watched.filter(movie => movie.imdbID !== id))
     }
 
     useEffect(() => {
@@ -123,12 +131,16 @@ export default function App() {
                 <Box>
                     {selectedId ? (
                             <SelectedMovie selectedId={selectedId}
-                                           onCloseMovie={handleCLoseMovie}/>
+                                           onCloseMovie={handleCloseMovie}
+                                           onAddWatched={handleAddWatched}
+                                           watched={watched}
+                                           KEY={KEY}/>
                         )
                         : (
                             <>
                                 <Summary watched={watched}/>
-                                <WatchedMoviesList watched={watched}/>
+                                <WatchedMoviesList watched={watched}
+                                                   onDeleteWatched={handleDeleteWatched}/>
                             </>
                         )}
                 </Box>

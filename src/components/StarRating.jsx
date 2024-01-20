@@ -11,8 +11,7 @@ const starContainerStyle = {
     display: 'flex',
     gap: '4px',
 }
-export default function StarRating({maxRating = 10, color = '#fcc419', size = 48}) {
-    const [rating, setRating] = useState(0);
+export default function StarRating({maxRating = 10, color = '#fcc419', size = 48, userRating, onSetRating}) {
     const [tempRating, setTempRating] = useState(0);
 
     const textStyle = {
@@ -27,14 +26,14 @@ export default function StarRating({maxRating = 10, color = '#fcc419', size = 48
             <div style={containerStyle}>
                 <div style={starContainerStyle}>
                     {Array.from({length: maxRating}, (_, i) => <Star key={i}
-                                                                     onRate={() => setRating(i + 1)}
+                                                                     onRate={() => onSetRating(i + 1)}
                                                                      onHoverIn={() => setTempRating(i + 1)}
                                                                      onHoverOut={() => setTempRating(0)}
-                                                                     full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+                                                                     full={tempRating ? tempRating >= i + 1 : userRating >= i + 1}
                                                                      color={color}
                                                                      size={size}/>)}
                 </div>
-                <p style={textStyle}>{tempRating || rating || ""}</p>
+                <p style={textStyle}>{tempRating || userRating || ""}</p>
             </div>
         </>
     )
