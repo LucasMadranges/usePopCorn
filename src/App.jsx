@@ -93,6 +93,7 @@ export default function App() {
             return
         }
 
+        handleCloseMovie()
         DataMovies(controller);
 
         return function () {

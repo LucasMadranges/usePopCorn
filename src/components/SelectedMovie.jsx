@@ -24,6 +24,18 @@ export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, w
         Genre: genre,
     } = movie;
 
+    useEffect(() => {
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                onCloseMovie();
+            }
+        })
+
+        return function () {
+            document.removeEventListener("keydown", onCloseMovie);
+        }
+    }, [onCloseMovie])
+
     async function getMovieDetails() {
         const resp = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`);
         setError('')
