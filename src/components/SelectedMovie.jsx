@@ -59,6 +59,10 @@ export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, w
     useEffect(() => {
         if (!title) return;
         document.title = `🍿 UsePopCorn | ${title}`;
+
+        return function () {
+            document.title = "🍿 UsePopCorn";
+        }
     }, [title])
 
     return (
