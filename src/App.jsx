@@ -85,20 +85,27 @@ export default function App() {
     }
 
     useEffect(() => {
-        setIsLoading(true);
+        const controller = new AbortController();
+
         if (!query.length) {
             setMovies([]);
             setError('');
             return
         }
 
-        DataMovies();
+        DataMovies(controller);
+
+        return function () {
+            controller.abort();
+        }
     }, [query])
 
-    async function DataMovies() {
+    async function DataMovies(controller) {
         try {
-            const resp = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`);
+            setIsLoading(true);
             setError('')
+
+            const resp = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`, {signal: controller.signal});
             if (!resp.ok) throw new Error(`Something went wrong with fetching movies: ${error}`)
 
             const data = await resp.json();
