@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import StarRating from "./StarRating.jsx";
 import Loader from "./Loader.jsx";
+import {useKey} from "../hooks/useKey.jsx";
 
 export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, watched, KEY}) {
     const [movie, setMovie] = useState({})
@@ -30,17 +31,7 @@ export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, w
         Genre: genre,
     } = movie;
 
-    useEffect(() => {
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                onCloseMovie();
-            }
-        })
-
-        return function () {
-            document.removeEventListener("keydown", onCloseMovie);
-        }
-    }, [onCloseMovie])
+    useKey('Escape', onCloseMovie);
 
     async function getMovieDetails() {
         const resp = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`);
