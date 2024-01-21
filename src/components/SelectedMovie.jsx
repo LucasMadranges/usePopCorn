@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import StarRating from "./StarRating.jsx";
 import Loader from "./Loader.jsx";
 
@@ -7,6 +7,12 @@ export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, w
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [userRating, setUserRating] = useState('');
+
+    const countRef = useRef(0);
+
+    useEffect(() => {
+        if (userRating) countRef.current = countRef.current + 1;
+    }, [userRating]);
 
     const isWatched = watched.map(movie => movie.imdbID).includes(selectedId);
     const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating;
@@ -23,7 +29,7 @@ export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, w
         Director: director,
         Genre: genre,
     } = movie;
-    
+
     useEffect(() => {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
@@ -57,6 +63,7 @@ export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, w
             imdbRating: Number(imdbRating),
             runtime: runtime.split(' ').at(0),
             userRating,
+            countRatingDecisions: countRef.current,
         }
 
         onAddWatched(newWatchedMovie)
