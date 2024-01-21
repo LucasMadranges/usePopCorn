@@ -23,7 +23,7 @@ export default function SelectedMovie({selectedId, onCloseMovie, onAddWatched, w
         Director: director,
         Genre: genre,
     } = movie;
-
+    
     useEffect(() => {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
